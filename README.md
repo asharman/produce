@@ -12,8 +12,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ## Setting up Postgres in Docker
 ```bash
-$ docker run --name produce-dev -e POSTGRES_PASSWOR
-D=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=produce_dev -p 5432:5432 -d postgres
+$ docker run --name produce-dev -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=produce_dev -p 5432:5432 -d postgres
 ```
 
 ## Learn more
