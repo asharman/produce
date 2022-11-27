@@ -18,6 +18,7 @@ defmodule ProduceWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/inventory/add", InventoryController, :add
   end
 
   # Other scopes may use custom stacks.

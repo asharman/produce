@@ -1,8 +1,15 @@
 defmodule ProduceWeb.PageControllerTest do
   use ProduceWeb.ConnCase
 
-  test "GET /", %{conn: conn} do
-    conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+  describe "GET /" do
+    test "Returns a 200 Response", %{conn: conn} do
+      conn = get(conn, "/")
+      assert html_response(conn, 200) =~ "All the Produce"
+    end
+
+    test "Contains a form that POSTs to /inventory/add", %{conn: conn} do
+      conn = get(conn, "/")
+      assert html_response(conn, 200) =~ "<form action=\"/inventory/add\" method=\"post\">"
+    end
   end
 end
