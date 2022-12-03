@@ -4,7 +4,7 @@ defmodule ProduceWeb.InventoryController do
 
   @spec add(Plug.Conn.t(), %{String.t() => %{optional(binary) => binary}}) :: Plug.Conn.t()
   def add(conn, %{"produce" => add_produce_params}) do
-    with {:ok, %{produce: produce, quantity: quantity}} <-
+    with {_form, %{produce: produce, quantity: quantity}} <-
            Forms.AddProduce.validate(add_produce_params),
          :ok <- Produce.add_produce(produce, quantity) do
       conn
@@ -16,7 +16,7 @@ defmodule ProduceWeb.InventoryController do
         |> put_flash(:error, error)
         |> redirect(to: Routes.page_path(conn, :index))
 
-      {:form_error, invalid_form} ->
+      {invalid_form, nil} ->
         conn
         |> put_flash(:error, "Some values entered are invalid")
         |> put_view(ProduceWeb.PageView)
