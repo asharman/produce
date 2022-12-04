@@ -9,7 +9,8 @@ defmodule Produce.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Produce.Repo,
+      # Produce.Repo,
+      Produce.ProduceStore,
       # Start the Telemetry supervisor
       ProduceWeb.Telemetry,
       # Start the PubSub system
