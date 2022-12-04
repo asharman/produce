@@ -2,9 +2,6 @@ defmodule ProduceWeb.Form do
   alias Ecto.Changeset
 
   @opaque t() :: Changeset.t()
-  @type invalid_form() :: {Changeset.t(), list(error())}
-  @type valid_form_data() :: Changeset.data()
-
   @type form_types :: %{atom() => atom()}
   @type form_data :: %{optional(atom | binary) => term()}
   @type error() :: String.t()
@@ -20,11 +17,11 @@ defmodule ProduceWeb.Form do
 
   @spec validate(t(), validation()) :: {t(), nil | any()}
   def validate(form, validator) do
-    {validated_form, maybe_data} = validator.(form)
+    {validated_form, data} = validator.(form)
 
     if valid?(validated_form) do
       # If its valid we should have all the data
-      {validated_form, maybe_data}
+      {validated_form, data}
     else
       # Just throw away the partial data
       {:error, invalid_form} = Changeset.apply_action(validated_form, :validate)
@@ -95,7 +92,7 @@ defmodule ProduceWeb.Form do
   def errors(form), do: form.errors
 
   @spec validate_required(t(), atom(), Keyword.t()) :: t()
-  defp validate_required(form, field, opts), do: Changeset.validate_required(form, field, opts)
+  defdelegate validate_required(form, field, opts), to: Changeset
 
   @spec validate_number(t(), atom(), Keyword.t()) :: t()
   defp validate_number(form, field, opts), do: Changeset.validate_number(form, field, opts)

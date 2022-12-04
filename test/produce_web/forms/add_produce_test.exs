@@ -25,9 +25,14 @@ defmodule ProduceWeb.Forms.AddProduceTest do
       assert validated_params == expected_params
     end
 
-    test "invalid parameters returns an error with invalid keys" do
+    test "invalid parameters returns an invalid form and no data" do
+      error_messages = ["Quantity must be greater than 0", "Name must be provided"]
       assert {invalid_form, nil} = AddProduce.validate(@invalid_attrs)
-      assert [quantity: _, name: _] = Form.errors(invalid_form)
+      errors = Form.errors(invalid_form)
+
+      for msg <- error_messages do
+        assert msg in errors
+      end
     end
   end
 end
