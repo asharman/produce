@@ -1,6 +1,4 @@
-<h1>All the Produce</h1>
-<section>
-  <h2>Add new Produce</h2>
+<h1>Add new Produce</h1>
   <%= form_for @form, Routes.inventory_path(@conn, :add), [as: :produce], fn f -> %>
     <%= label(f, :name) %>
     <%= text_input(f, :name) %>
@@ -12,4 +10,22 @@
 
     <%= submit "Add Produce" %>
   <% end %>
-</section>
+  <h2>Pantry</h2>
+  <table>
+    <thead>
+        <tr>
+            <th>Produce</th>
+            <th>Quantity</th>
+            <th>Date Added</th>
+        </tr>
+    </thead>
+    <tbody>
+      <%= for produce_entry <- @produce do %>
+            <tr>
+                <td><%=produce_entry.produce%></td>
+                <td><%=produce_entry.quantity%></td>
+                <td><%=Calendar.strftime(produce_entry.date_added, "%a, %B %d %Y")%></td>
+            </tr>
+      <% end %>
+    </tbody>
+  </table>

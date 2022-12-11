@@ -20,4 +20,9 @@ defmodule Produce.ProduceStore do
   def add_produce(produce, quantity, name \\ @name) do
     Agent.update(name, Inventory, :add, [produce, quantity, DateTime.utc_now()])
   end
+
+  @spec list_produce(Agent.name()) :: list(Inventory.entry_with_produce())
+  def list_produce(name \\ @name) do
+    Agent.get(name, Inventory, :list, [])
+  end
 end

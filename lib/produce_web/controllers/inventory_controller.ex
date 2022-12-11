@@ -20,6 +20,7 @@ defmodule ProduceWeb.InventoryController do
         conn
         |> put_flash(:error, "Some values entered are invalid")
         |> put_view(ProduceWeb.PageView)
+        |> ProduceWeb.PageView.prep_for_render()
         |> render("index.html", form: invalid_form)
     end
   end

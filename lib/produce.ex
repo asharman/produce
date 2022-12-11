@@ -11,4 +11,7 @@ defmodule Produce do
 
   @spec add_produce(DomainTypes.Produce.t(), pos_integer) :: :ok
   defdelegate add_produce(produce, quantity), to: ProduceStore
+
+  @spec list_produce() :: list(DomainTypes.Inventory.entry_with_produce())
+  defdelegate list_produce(), to: ProduceStore
 end
